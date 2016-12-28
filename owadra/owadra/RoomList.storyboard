@@ -95,10 +95,11 @@
                         <constraints>
                             <constraint firstItem="Hfh-Vj-JPi" firstAttribute="top" secondItem="Pc0-OP-vzL" secondAttribute="top" id="67n-Tn-f7a"/>
                             <constraint firstAttribute="trailing" secondItem="Hfh-Vj-JPi" secondAttribute="trailing" id="75n-9h-P6c"/>
-                            <constraint firstItem="VBd-sP-ZC2" firstAttribute="top" secondItem="Hfh-Vj-JPi" secondAttribute="bottom" id="7ZD-nN-Wlr"/>
+                            <constraint firstAttribute="bottom" secondItem="Hfh-Vj-JPi" secondAttribute="bottom" id="luU-vQ-gV4"/>
                             <constraint firstItem="Hfh-Vj-JPi" firstAttribute="leading" secondItem="Pc0-OP-vzL" secondAttribute="leading" id="mP7-2N-Be1"/>
                         </constraints>
                     </view>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="tableView" destination="Hfh-Vj-JPi" id="5XQ-aG-dtc"/>
                     </connections>
