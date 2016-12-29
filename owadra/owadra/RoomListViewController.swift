@@ -15,6 +15,7 @@ class RoomListViewController: UIViewController, UITableViewDelegate, UITableView
     private var roomList: [PazdraMultiComRoom] = []
     var url: URL = PazdraMultiComModel.manager.baseUrl
     var defaultDungeonName: String = ""
+    private var _imageCache = URLCache.init(memoryCapacity: 1 * 1024 * 1024, diskCapacity: 0, diskPath: nil)
     
     static func viewController() -> RoomListViewController {
         let sb = UIStoryboard.init(name: "RoomList", bundle: nil)
@@ -85,6 +86,7 @@ class RoomListViewController: UIViewController, UITableViewDelegate, UITableView
             PazdraMultiComModel.manager.appendRoomList{ (newList) in
                 DispatchQueue.main.async {
                     indicator.stopAnimating()
+                    append?.textLabel?.text = "..."
                     
                     self.roomList = newList
                     self.tableView.reloadData()
@@ -115,9 +117,15 @@ class RoomListViewController: UIViewController, UITableViewDelegate, UITableView
             let commentLabel = cell.viewWithTag(30) as! UILabel
             commentLabel.text = model.comment?.replacingOccurrences(of: "\n", with: " ") ?? ""
             
+            let iconView = cell.viewWithTag(50) as! UIImageView
+            iconView.asyncLoad(url: model.icon, cache: _imageCache)
+            
             return cell
         } else {
             let append = tableView.dequeueReusableCell(withIdentifier: "append")!
+            
+            append.textLabel?.textAlignment = .center
+            append.textLabel?.text = "..."
             
             let indicator = append.viewWithTag(10) as! UIActivityIndicatorView
             indicator.stopAnimating()

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0120DA5F1E1569FD00F3F5F4 /* UIImageView+async.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0120DA5E1E1569FD00F3F5F4 /* UIImageView+async.swift */; };
 		012681121E113F54009CCAF8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012681111E113F54009CCAF8 /* AppDelegate.swift */; };
 		012681141E113F54009CCAF8 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012681131E113F54009CCAF8 /* TabBarController.swift */; };
 		012681171E113F54009CCAF8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 012681151E113F54009CCAF8 /* Main.storyboard */; };
@@ -44,6 +45,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0120DA5E1E1569FD00F3F5F4 /* UIImageView+async.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+async.swift"; sourceTree = "<group>"; };
 		0126810E1E113F54009CCAF8 /* owadra.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = owadra.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		012681111E113F54009CCAF8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		012681131E113F54009CCAF8 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
@@ -107,6 +109,7 @@
 				012681151E113F54009CCAF8 /* Main.storyboard */,
 				0126812D1E1147F9009CCAF8 /* Models */,
 				012681231E1140AE009CCAF8 /* RoomListViewController.swift */,
+				0120DA5E1E1569FD00F3F5F4 /* UIImageView+async.swift */,
 				012681251E1140CB009CCAF8 /* RoomList.storyboard */,
 				0197A8DC1E13A5C9001AB810 /* SearchFilterViewController.swift */,
 				0197A8DE1E13A5E9001AB810 /* SearchFilter.storyboard */,
@@ -175,6 +178,11 @@
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = A7VDZ6JG7H;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -224,6 +232,7 @@
 				012681241E1140AE009CCAF8 /* RoomListViewController.swift in Sources */,
 				012681141E113F54009CCAF8 /* TabBarController.swift in Sources */,
 				0197A8E31E13DEEC001AB810 /* ConfigViewController.swift in Sources */,
+				0120DA5F1E1569FD00F3F5F4 /* UIImageView+async.swift in Sources */,
 				0126812C1E1147F0009CCAF8 /* PazdraMultiCom.swift in Sources */,
 				0197A8E51E13E1AD001AB810 /* InfoViewController.swift in Sources */,
 				012681121E113F54009CCAF8 /* AppDelegate.swift in Sources */,

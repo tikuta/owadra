@@ -20,6 +20,8 @@ struct PazdraMultiComRoom {
     var leader: String?
     var comment: String?
     
+    var icon: URL
+    
     func roomId(_ completion: ((String?) -> Void)?) {
         let conf = URLSessionConfiguration.default
         conf.httpAdditionalHeaders = ["User-Agent": IOS10_SAFARI_USER_AGENT]
@@ -121,7 +123,9 @@ class PazdraMultiComModel {
                     str1 + "\n" + (ji.content != nil ? ji.content! : "")
                 }).trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
                 
-                let model = PazdraMultiComRoom(detail: detail, date: date, dungeon: fullDungeon, leader: leader, comment: comment)
+                let icon = URL.init(string: ($0.xPath(".//img/@src").first?.content)!)
+                
+                let model = PazdraMultiComRoom(detail: detail, date: date, dungeon: fullDungeon, leader: leader, comment: comment, icon: icon!)
                 result.append(model)
             }
             
@@ -134,7 +138,15 @@ class PazdraMultiComModel {
         _page += 1
         
         var components = URLComponents.init(string: _currentUrl!.absoluteString)
-        components?.queryItems = [URLQueryItem.init(name: "page", value: String(_page))]
+        
+        var param: [String: String] = ["page": String(_page)]
+        _currentUrl?.query?.components(separatedBy: "&").forEach{
+            let kv = $0.components(separatedBy: "=")
+            param[kv[0]] = kv[1]
+        }
+        components?.queryItems = param.map{
+            URLQueryItem.init(name: $0, value: $1)
+        }
         
         let conf = URLSessionConfiguration.default
         conf.httpAdditionalHeaders = ["User-Agent": IOS10_SAFARI_USER_AGENT]
@@ -164,7 +176,9 @@ class PazdraMultiComModel {
                     str1 + "\n" + (ji.content != nil ? ji.content! : "")
                 }).trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
                 
-                let model = PazdraMultiComRoom(detail: detail, date: date, dungeon: fullDungeon, leader: leader, comment: comment)
+                let icon = URL.init(string: ($0.xPath(".//img/@src").first?.content)!)
+                
+                let model = PazdraMultiComRoom(detail: detail, date: date, dungeon: fullDungeon, leader: leader, comment: comment, icon: icon!)
                 result.append(model)
             }
             

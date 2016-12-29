@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -42,7 +43,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="20" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="リーダー名" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3B9-M2-zTU">
-                                                    <rect key="frame" x="8" y="37" width="359" height="21"/>
+                                                    <rect key="frame" x="66" y="37" width="301" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="86F-8f-4Kk"/>
                                                     </constraints>
@@ -51,7 +52,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="30" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="コメント" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oYR-UV-MZF">
-                                                    <rect key="frame" x="8" y="66" width="359" height="21"/>
+                                                    <rect key="frame" x="66" y="66" width="301" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -65,21 +66,30 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView userInteractionEnabled="NO" tag="50" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="D2s-ct-EjO">
+                                                    <rect key="frame" x="8" y="37" width="50" height="50"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" secondItem="D2s-ct-EjO" secondAttribute="height" multiplier="1:1" id="m7a-fc-pZ9"/>
+                                                    </constraints>
+                                                </imageView>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="D2s-ct-EjO" secondAttribute="bottom" constant="8.5" id="0ut-33-5d0"/>
+                                                <constraint firstItem="D2s-ct-EjO" firstAttribute="leading" secondItem="5M3-aI-Fxd" secondAttribute="leading" constant="8" id="2qt-jp-Ga3"/>
                                                 <constraint firstItem="ynh-sy-AUL" firstAttribute="top" secondItem="5M3-aI-Fxd" secondAttribute="top" constant="8" id="5Fx-Q9-UbQ"/>
                                                 <constraint firstItem="3B9-M2-zTU" firstAttribute="top" secondItem="ynh-sy-AUL" secondAttribute="bottom" constant="8" id="8Oh-u6-SiO"/>
+                                                <constraint firstItem="ynh-sy-AUL" firstAttribute="leading" secondItem="5M3-aI-Fxd" secondAttribute="leading" constant="8" id="D1a-Ym-XsK"/>
                                                 <constraint firstItem="3B9-M2-zTU" firstAttribute="top" secondItem="ynh-sy-AUL" secondAttribute="bottom" constant="8" id="Dvt-oe-0F1"/>
                                                 <constraint firstItem="oc2-U0-mdX" firstAttribute="top" secondItem="5M3-aI-Fxd" secondAttribute="top" constant="8" id="Fpv-Sm-0i3"/>
-                                                <constraint firstItem="ynh-sy-AUL" firstAttribute="leading" secondItem="5M3-aI-Fxd" secondAttribute="leading" constant="8" id="Fwe-Vh-xeQ"/>
-                                                <constraint firstItem="oYR-UV-MZF" firstAttribute="leading" secondItem="5M3-aI-Fxd" secondAttribute="leading" constant="8" id="Gcp-9b-pcQ"/>
                                                 <constraint firstAttribute="bottom" secondItem="oYR-UV-MZF" secondAttribute="bottom" constant="8" id="GiF-n3-oYF"/>
+                                                <constraint firstItem="3B9-M2-zTU" firstAttribute="leading" secondItem="D2s-ct-EjO" secondAttribute="trailing" constant="8" id="IKb-tN-9Y0"/>
+                                                <constraint firstItem="oYR-UV-MZF" firstAttribute="leading" secondItem="D2s-ct-EjO" secondAttribute="trailing" constant="8" id="SX6-ZY-DEO"/>
                                                 <constraint firstAttribute="trailing" secondItem="oc2-U0-mdX" secondAttribute="trailing" constant="8" id="TpK-R7-KeU"/>
-                                                <constraint firstItem="3B9-M2-zTU" firstAttribute="leading" secondItem="5M3-aI-Fxd" secondAttribute="leading" constant="8" id="aSd-RI-ggW"/>
                                                 <constraint firstItem="oYR-UV-MZF" firstAttribute="top" secondItem="3B9-M2-zTU" secondAttribute="bottom" constant="8" id="edV-6t-yL6"/>
                                                 <constraint firstAttribute="trailing" secondItem="oYR-UV-MZF" secondAttribute="trailing" constant="8" id="p30-dA-j2c"/>
                                                 <constraint firstItem="oYR-UV-MZF" firstAttribute="top" secondItem="3B9-M2-zTU" secondAttribute="bottom" constant="8" id="pGC-RJ-7WS"/>
                                                 <constraint firstItem="oc2-U0-mdX" firstAttribute="leading" secondItem="ynh-sy-AUL" secondAttribute="trailing" constant="8" id="qs2-1F-jKC"/>
+                                                <constraint firstItem="D2s-ct-EjO" firstAttribute="top" secondItem="ynh-sy-AUL" secondAttribute="bottom" constant="8" id="ttl-cD-OL5"/>
                                                 <constraint firstAttribute="trailing" secondItem="3B9-M2-zTU" secondAttribute="trailing" constant="8" id="uET-hF-Pbi"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -91,7 +101,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="92"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <activityIndicatorView opaque="NO" tag="10" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="bIh-tb-mw2">
+                                                <activityIndicatorView hidden="YES" opaque="NO" tag="10" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="bIh-tb-mw2">
                                                     <rect key="frame" x="177" y="36" width="20" height="20"/>
                                                 </activityIndicatorView>
                                             </subviews>
