@@ -14,6 +14,7 @@ class RoomListViewController: UIViewController, UITableViewDelegate, UITableView
     
     private var roomList: [PazdraMultiComRoom] = []
     var url: URL = PazdraMultiComModel.manager.baseUrl
+    var defaultDungeonName: String = ""
     
     static func viewController() -> RoomListViewController {
         let sb = UIStoryboard.init(name: "RoomList", bundle: nil)
@@ -31,6 +32,9 @@ class RoomListViewController: UIViewController, UITableViewDelegate, UITableView
         
         let categoryButton = UIBarButtonItem.init(title: "ダンジョン", style: .plain, target: self, action: #selector(pushToSearchFilter(_:)))
         navigationItem.rightBarButtonItem = categoryButton
+        
+        let reloadButton = UIBarButtonItem.init(barButtonSystemItem: .refresh, target: self, action: #selector(reload(_:)))
+        navigationItem.leftBarButtonItem = reloadButton
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -50,23 +54,19 @@ class RoomListViewController: UIViewController, UITableViewDelegate, UITableView
         navigationController?.pushViewController(vc, animated: true)
     }
     
-    func filterDidChanged(newUrl: URL) {
+    func filterDidChanged(newUrl: URL, newDefaultDungeonName: String) {
         url = newUrl
+        defaultDungeonName = newDefaultDungeonName
         
-        PazdraMultiComModel.manager.reloadRoomList(url: url) { (newList) in
-            self.roomList = newList
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
-        }
+        reload(self)
     }
     
-    func reload(_ sender: UIRefreshControl) {
+    func reload(_ sender: AnyObject) {
         PazdraMultiComModel.manager.reloadRoomList(url: url) { (newList) in
             self.roomList = newList
             DispatchQueue.main.async {
                 self.tableView.reloadData()
-                sender.endRefreshing()
+                (sender as? UIRefreshControl)?.endRefreshing()
             }
         }
     }
@@ -74,36 +74,55 @@ class RoomListViewController: UIViewController, UITableViewDelegate, UITableView
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        let vc = RoomDetailViewController.viewController(model: roomList[indexPath.row])
-        self.navigationController?.pushViewController(vc, animated: true)
+        if indexPath.row < roomList.count {
+            let vc = RoomDetailViewController.viewController(model: roomList[indexPath.row])
+            navigationController?.pushViewController(vc, animated: true)
+        } else {
+            let append = tableView.cellForRow(at: indexPath)
+            append?.textLabel?.text = ""
+            let indicator = append?.viewWithTag(10) as! UIActivityIndicatorView
+            indicator.startAnimating()
+            PazdraMultiComModel.manager.appendRoomList{ (newList) in
+                DispatchQueue.main.async {
+                    indicator.stopAnimating()
+                    
+                    self.roomList = newList
+                    self.tableView.reloadData()
+                }
+            }
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return roomList.count
+        return roomList.count + 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell")!
-        
-        let model = roomList[indexPath.row]
-        
-        let dungeonLabel = cell.viewWithTag(10) as! UILabel
-        dungeonLabel.text = model.dungeon ?? "(設定なし)"
-        
-        let leaderLabel = cell.viewWithTag(20) as! UILabel
-        leaderLabel.text = model.leader
-        
-        let dateLabel = cell.viewWithTag(40) as! UILabel
-        dateLabel.text = model.date
-        
-        let commentLabel = cell.viewWithTag(30) as! UILabel
-        guard let theComment = model.comment else {
-            commentLabel.text = ""
+        if indexPath.row < roomList.count {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "cell")!
+            
+            let model = roomList[indexPath.row]
+            
+            let dungeonLabel = cell.viewWithTag(10) as! UILabel
+            dungeonLabel.text = model.dungeon ?? defaultDungeonName
+            
+            let leaderLabel = cell.viewWithTag(20) as! UILabel
+            leaderLabel.text = model.leader
+            
+            let dateLabel = cell.viewWithTag(40) as! UILabel
+            dateLabel.text = model.date
+            
+            let commentLabel = cell.viewWithTag(30) as! UILabel
+            commentLabel.text = model.comment?.replacingOccurrences(of: "\n", with: " ") ?? ""
+            
             return cell
+        } else {
+            let append = tableView.dequeueReusableCell(withIdentifier: "append")!
+            
+            let indicator = append.viewWithTag(10) as! UIActivityIndicatorView
+            indicator.stopAnimating()
+            
+            return append
         }
-        
-        commentLabel.text = (theComment as NSString).replacingOccurrences(of: "\n", with: " ")
-        
-        return cell
     }
 }

@@ -29,7 +29,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="96"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="GWA-rv-dhm" id="5M3-aI-Fxd">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="95"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="95.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="10" contentMode="left" verticalHuggingPriority="251" text="ダンジョン名" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ynh-sy-AUL">
@@ -81,6 +81,23 @@
                                                 <constraint firstItem="oYR-UV-MZF" firstAttribute="top" secondItem="3B9-M2-zTU" secondAttribute="bottom" constant="8" id="pGC-RJ-7WS"/>
                                                 <constraint firstItem="oc2-U0-mdX" firstAttribute="leading" secondItem="ynh-sy-AUL" secondAttribute="trailing" constant="8" id="qs2-1F-jKC"/>
                                                 <constraint firstAttribute="trailing" secondItem="3B9-M2-zTU" secondAttribute="trailing" constant="8" id="uET-hF-Pbi"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="append" id="NhU-8D-6At">
+                                        <rect key="frame" x="0.0" y="124" width="375" height="93"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="NhU-8D-6At" id="ljs-MW-OAo">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="92"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <activityIndicatorView opaque="NO" tag="10" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="bIh-tb-mw2">
+                                                    <rect key="frame" x="177" y="36" width="20" height="20"/>
+                                                </activityIndicatorView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="bIh-tb-mw2" firstAttribute="centerY" secondItem="ljs-MW-OAo" secondAttribute="centerY" id="Ce9-0X-ilW"/>
+                                                <constraint firstItem="bIh-tb-mw2" firstAttribute="centerX" secondItem="ljs-MW-OAo" secondAttribute="centerX" id="M4f-2I-j92"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>

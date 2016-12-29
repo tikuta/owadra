@@ -11,7 +11,7 @@ import UIKit
 import Ji
 
 protocol SearchFilterDelegate {
-    func filterDidChanged(newUrl: URL)
+    func filterDidChanged(newUrl: URL, newDefaultDungeonName: String)
 }
 
 class SearchFilterViewController: UIViewController, UITableViewDelegate, UITableViewDataSource  {
@@ -56,8 +56,12 @@ class SearchFilterViewController: UIViewController, UITableViewDelegate, UITable
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        delegate?.filterDidChanged(newUrl: (dungeonList[indexPath.row]?.values.first)!)
-        
+        if indexPath.row == 0 {
+            delegate?.filterDidChanged(newUrl: ((dungeonList[indexPath.row])?.values.first)!, newDefaultDungeonName: "")
+        } else {
+            delegate?.filterDidChanged(newUrl: (dungeonList[indexPath.row]?.values.first)!,
+                                       newDefaultDungeonName: (dungeonList[indexPath.row]?.keys.first)!)
+        }
         _ = navigationController?.popViewController(animated: true)
     }
 }

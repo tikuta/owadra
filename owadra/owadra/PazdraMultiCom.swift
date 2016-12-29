@@ -50,9 +50,11 @@ class PazdraMultiComModel {
     }
     
     let baseUrl = URL.init(string: "https://xn--0ckox4a8d3cp.com")!
+    private var _currentUrl: URL?
     
     private var _roomList: [PazdraMultiComRoom] = []
     private var _dungeonList: [Int: [String: URL]] = [:]
+    private var _page = 0
     
     func dungeonList(completion: ((DungeonList) -> Void)?) {
         if _dungeonList.count > 0 {
@@ -87,6 +89,8 @@ class PazdraMultiComModel {
     }
     
     func reloadRoomList(url: URL, completion: ((RoomList) -> Void)?) {
+        _currentUrl = url
+        _page = 0
         _roomList = []
         
         let conf = URLSessionConfiguration.default
@@ -124,5 +128,48 @@ class PazdraMultiComModel {
             self._roomList = result
             completion?(self._roomList)
         }.resume()
+    }
+    
+    func appendRoomList(completion: ((RoomList) -> Void)?) {
+        _page += 1
+        
+        var components = URLComponents.init(string: _currentUrl!.absoluteString)
+        components?.queryItems = [URLQueryItem.init(name: "page", value: String(_page))]
+        
+        let conf = URLSessionConfiguration.default
+        conf.httpAdditionalHeaders = ["User-Agent": IOS10_SAFARI_USER_AGENT]
+        
+        let session = URLSession.init(configuration: conf)
+        session.dataTask(with: (components?.url)!) { (data, response, error) in
+            guard let theData = data else {
+                return
+            }
+            guard let doc = Ji(htmlData: theData) else {
+                return
+            }
+            
+            var result: [PazdraMultiComRoom] = []
+            doc.xPath("//ul[@id=\"mlt_list\"]/li/*")?.forEach{
+                let detail = URL.init(string: ($0.xPath("./@href").first?.content)!, relativeTo: self.baseUrl)!
+                
+                let date = $0.xPath(".//span[@class=\"day\"]/text()").first?.content
+                
+                let lv = $0.xPath(".//span[@class=\"lv\"]").first?.content
+                let dungeon = $0.xPath(".//p[@class=\"danjon\"]/text()").first?.content
+                
+                let fullDungeon = dungeon != nil && lv != nil && lv != "─" ? dungeon! + lv! : dungeon
+                
+                let leader = $0.xPath(".//p[@class=\"my_leader\"]/text()").first?.content
+                let comment = $0.xPath(".//p[not(@class)]/text()").reduce("", { (str1, ji) -> String in
+                    str1 + "\n" + (ji.content != nil ? ji.content! : "")
+                }).trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+                
+                let model = PazdraMultiComRoom(detail: detail, date: date, dungeon: fullDungeon, leader: leader, comment: comment)
+                result.append(model)
+            }
+            
+            self._roomList.append(contentsOf: result)
+            completion?(self._roomList)
+            }.resume()
     }
 }
